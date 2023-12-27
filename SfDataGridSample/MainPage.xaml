@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:syncfusion="clr-namespace:Syncfusion.Maui.DataGrid;assembly=Syncfusion.Maui.DataGrid"
+             xmlns:local="clr-namespace:SfDataGridSample"
+             xmlns:comparer="clr-namespace:SfDataGridSample.Comparer"
+             x:Class="SfDataGridSample.MainPage">
+
+    <ContentPage.BindingContext>
+        <local:EmployeeViewModel x:Name="viewModel" />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <comparer:CustomSortComparer x:Key="groupDateTimeConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <syncfusion:SfDataGrid  ItemsSource="{Binding OrdersInfo}"
+                            AutoGenerateColumnsMode="None"
+                            AllowGroupExpandCollapse="True"
+                            GroupingMode="Single"
+                            x:Name="dataGrid"
+                            ColumnWidthMode="Auto"
+                            DefaultColumnWidth="155">
+
+        <syncfusion:SfDataGrid.Columns>
+            <syncfusion:DataGridTextColumn MappingName="OrderID"
+                                           HeaderText="Order ID" />
+            <syncfusion:DataGridTextColumn MappingName="CustomerID"
+                                           HeaderText="Customer ID" />
+            <syncfusion:DataGridTextColumn MappingName="Freight"
+                                           HeaderText="Freight" />
+            <syncfusion:DataGridTextColumn MappingName="ShippingDate"
+                                           Format="dd/MM/yyyy"
+                                           HeaderText="Shipping Date" />
+        </syncfusion:SfDataGrid.Columns>
+
+        <syncfusion:SfDataGrid.GroupColumnDescriptions>
+            <syncfusion:GroupColumnDescription ColumnName="ShippingDate"
+                                               Comparer="{StaticResource groupDateTimeConverter}"/>
+        </syncfusion:SfDataGrid.GroupColumnDescriptions>
+
+    </syncfusion:SfDataGrid>
+
+</ContentPage>
